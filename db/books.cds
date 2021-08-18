@@ -2,7 +2,7 @@ namespace my.bookshop;
 
 using {
     my.bookshop as my,
-    Currency,
+    // Currency,
     sap,
     managed,
     cuid
@@ -11,35 +11,35 @@ using {
 @fiori.draft.enabled
 entity Books : cuid, managed {
     title        : localized String(111);
-    descr        : localized String(1111);
-    author       : Association to Authors;
-    genre        : Association to Genres;
-    stock        : Integer;
-    price        : Decimal(9, 2);
-    currency     : Currency;
+    // descr        : localized String(1111);
+    // author       : Association to Authors;
+    // genre        : Association to Genres;
+    // stock        : Integer;
+    // price        : Decimal(9, 2);
+    // currency     : Currency;
     rating       : Decimal(2, 1);
     reviews      : Association to many my.Reviews
-                       on reviews.book = $self;
+                       on reviews.place = $self;
     isReviewable : my.TechnicalBooleanFlag not null default true;
 }
 
-entity Authors : cuid, managed {
-    @assert.format : '^\p{Lu}.*' // assert that name starts with a capital letter
-    name         : String(111);
-    dateOfBirth  : Date;
-    dateOfDeath  : Date;
-    placeOfBirth : String;
-    placeOfDeath : String;
-    books        : Association to many Books
-                       on books.author = $self;
-}
+// entity Authors : cuid, managed {
+//     @assert.format : '^\p{Lu}.*' // assert that name starts with a capital letter
+//     name         : String(111);
+//     dateOfBirth  : Date;
+//     dateOfDeath  : Date;
+//     placeOfBirth : String;
+//     placeOfDeath : String;
+//     books        : Association to many Books
+//                        on books.author = $self;
+// }
 
 /**
  * Hierarchically organized Code List for Genres
  */
-entity Genres : sap.common.CodeList {
-    key ID       : Integer;
-        parent   : Association to Genres;
-        children : Composition of many Genres
-                       on children.parent = $self;
-}
+// entity Genres : sap.common.CodeList {
+//     key ID       : Integer;
+//         parent   : Association to Genres;
+//         children : Composition of many Genres
+//                        on children.parent = $self;
+// }

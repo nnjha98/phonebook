@@ -103,39 +103,48 @@ annotate my.Reviews with
             Value : ID,
             ![@UI.Hidden]
         },
-        {Value : title}
+        {Value : phone}
     ],
     SelectionFields : [
-        book_ID,
-        rating
+        phone,
+        name,
+        place.title
     ],
     LineItem : [
         {
             Value : modifiedAt,
             Label : 'Date'
         },
+        // {
+        //     Value : createdBy,
+        //     Label : '{i18n>User}'
+        // },
+        // {
+        //     $Type : 'UI.DataFieldForAnnotation',
+        //     Label : '{i18n>Book}',
+        //     Target : '@UI.FieldGroup#BookAndAuthor'
+        // },
+        // {
+        //     $Type : 'UI.DataFieldForAnnotation',
+        //     Label : '{i18n>Rating}',
+        //     Target : '@UI.DataPoint#rating'
+        // },
         {
-            Value : createdBy,
-            Label : '{i18n>User}'
+            Value : name,
+            Label : 'Name'
         },
         {
-            $Type : 'UI.DataFieldForAnnotation',
-            Label : '{i18n>Book}',
-            Target : '@UI.FieldGroup#BookAndAuthor'
+            Value : phone,
+            Label : 'Phone'
         },
         {
-            $Type : 'UI.DataFieldForAnnotation',
-            Label : '{i18n>Rating}',
-            Target : '@UI.DataPoint#rating'
-        },
-        {
-            Value : title,
-            Label : '{i18n>Review}'
+            Value : place.title,
+            Label : 'Place'
         }
     ],
     FieldGroup #BookAndAuthor : {Data : [
-        {Value : book.title},
-        {Value : book.author.name}
+        {Value : place.title},
+        {Value : place.author.name}
     ]},
     DataPoint #rating : {
         Value : rating,
@@ -149,22 +158,22 @@ annotate my.Reviews with {
     ID
     @title : '{i18n>ID}'
     @UI.HiddenFilter;
-    title
+    phone
     @title : '{i18n>Title}';
-    book
+    place
     @ValueList.entity : 'Books'
-    @title : '{i18n>Book}'
+    @title : 'Place'
     @Common : {
-        Text : book.title,
+        Text : place.title,
         TextArrangement : #TextOnly
     };
     date
     @title : '{i18n>Date}';
     rating
-    @title : '{i18n>Rating}';
-    text
-    @title : '{i18n>Text}'
-    @UI.MultiLineText;
+    @title : 'ImportanceRating';
+    // text
+    // @title : '{i18n>Text}'
+    // @UI.MultiLineText;
 }
 
 
@@ -172,235 +181,235 @@ annotate my.Reviews with {
 //
 //	Genres List
 //
-annotate my.Genres with
-@(
-    Common.SemanticKey : [name],
-    UI : {
-        SelectionFields : [name],
-        LineItem : [
-            {Value : name},
-            {
-                Value : parent.name,
-                Label : 'Main Genre'
-            },
-        ],
-    }
-);
+// annotate my.Genres with
+// @(
+//     Common.SemanticKey : [name],
+//     UI : {
+//         SelectionFields : [name],
+//         LineItem : [
+//             {Value : name},
+//             {
+//                 Value : parent.name,
+//                 Label : 'Main Genre'
+//             },
+//         ],
+//     }
+// );
 
 
-////////////////////////////////////////////////////////////////////////////
-//
-//	Genre Details
-//
-annotate my.Genres with
-@(UI : {
-    Identification : [{Value : name}],
-    HeaderInfo : {
-        TypeName : '{i18n>Genre}',
-        TypeNamePlural : '{i18n>Genres}',
-        Title : {Value : name},
-        Description : {Value : ID}
-    },
-    Facets : [{
-        $Type : 'UI.ReferenceFacet',
-        Label : '{i18n>SubGenres}',
-        Target : 'children/@UI.LineItem'
-    }, ],
-});
+// ////////////////////////////////////////////////////////////////////////////
+// //
+// //	Genre Details
+// //
+// annotate my.Genres with
+// @(UI : {
+//     Identification : [{Value : name}],
+//     HeaderInfo : {
+//         TypeName : '{i18n>Genre}',
+//         TypeNamePlural : '{i18n>Genres}',
+//         Title : {Value : name},
+//         Description : {Value : ID}
+//     },
+//     Facets : [{
+//         $Type : 'UI.ReferenceFacet',
+//         Label : '{i18n>SubGenres}',
+//         Target : 'children/@UI.LineItem'
+//     }, ],
+// });
 
 
-////////////////////////////////////////////////////////////////////////////
-//
-//	Genres Elements
-//
-annotate my.Genres with {
-    ID
-    @title : '{i18n>ID}';
-    name
-    @title : '{i18n>Genre}';
-}
+// ////////////////////////////////////////////////////////////////////////////
+// //
+// //	Genres Elements
+// //
+// annotate my.Genres with {
+//     ID
+//     @title : '{i18n>ID}';
+//     name
+//     @title : '{i18n>Genre}';
+// }
 
 
-////////////////////////////////////////////////////////////////////////////
-//
-//	Authors List
-//
-annotate my.Authors with
-@(
-    Common.SemanticKey : [name],
-    UI : {
-        Identification : [{Value : name}],
-        SelectionFields : [name],
-        LineItem : [
-            {Value : ID},
-            {Value : name},
-            {Value : dateOfBirth},
-            {Value : dateOfDeath},
-            {Value : placeOfBirth},
-            {Value : placeOfDeath},
-        ],
-    }
-);
+// ////////////////////////////////////////////////////////////////////////////
+// //
+// //	Authors List
+// //
+// annotate my.Authors with
+// @(
+//     Common.SemanticKey : [name],
+//     UI : {
+//         Identification : [{Value : name}],
+//         SelectionFields : [name],
+//         LineItem : [
+//             {Value : ID},
+//             {Value : name},
+//             {Value : dateOfBirth},
+//             {Value : dateOfDeath},
+//             {Value : placeOfBirth},
+//             {Value : placeOfDeath},
+//         ],
+//     }
+// );
 
 
-////////////////////////////////////////////////////////////////////////////
-//
-//	Author Details
-//
-annotate my.Authors with
-@(UI : {
-    HeaderInfo : {
-        TypeName : '{i18n>Author}',
-        TypeNamePlural : '{i18n>Authors}',
-        Title : {Value : name},
-        Description : {Value : dateOfBirth}
-    },
-    Facets : [{
-        $Type : 'UI.ReferenceFacet',
-        Target : 'books/@UI.LineItem'
-    }, ],
-});
+// ////////////////////////////////////////////////////////////////////////////
+// //
+// //	Author Details
+// //
+// annotate my.Authors with
+// @(UI : {
+//     HeaderInfo : {
+//         TypeName : '{i18n>Author}',
+//         TypeNamePlural : '{i18n>Authors}',
+//         Title : {Value : name},
+//         Description : {Value : dateOfBirth}
+//     },
+//     Facets : [{
+//         $Type : 'UI.ReferenceFacet',
+//         Target : 'books/@UI.LineItem'
+//     }, ],
+// });
 
 
-////////////////////////////////////////////////////////////////////////////
-//
-//	Authors Elements
-//
-annotate my.Authors with {
-    ID
-    @title : '{i18n>ID}'
-    @UI.HiddenFilter;
-    name
-    @title : '{i18n>Name}';
-    dateOfBirth
-    @title : '{i18n>DateOfBirth}';
-    dateOfDeath
-    @title : '{i18n>DateOfDeath}';
-    placeOfBirth
-    @title : '{i18n>PlaceOfBirth}';
-    placeOfDeath
-    @title : '{i18n>PlaceOfDeath}';
-}
+// ////////////////////////////////////////////////////////////////////////////
+// //
+// //	Authors Elements
+// //
+// annotate my.Authors with {
+//     ID
+//     @title : '{i18n>ID}'
+//     @UI.HiddenFilter;
+//     name
+//     @title : '{i18n>Name}';
+//     dateOfBirth
+//     @title : '{i18n>DateOfBirth}';
+//     dateOfDeath
+//     @title : '{i18n>DateOfDeath}';
+//     placeOfBirth
+//     @title : '{i18n>PlaceOfBirth}';
+//     placeOfDeath
+//     @title : '{i18n>PlaceOfDeath}';
+// }
 
 
-////////////////////////////////////////////////////////////////////////////
-//
-//	Languages List
-//
-annotate common.Languages with
-@(
-    Common.SemanticKey : [code],
-    Identification : [{Value : code}],
-    UI : {
-        SelectionFields : [
-            name,
-            descr
-        ],
-        LineItem : [
-            {Value : code},
-            {Value : name},
-        ],
-    }
-);
+// ////////////////////////////////////////////////////////////////////////////
+// //
+// //	Languages List
+// //
+// annotate common.Languages with
+// @(
+//     Common.SemanticKey : [code],
+//     Identification : [{Value : code}],
+//     UI : {
+//         SelectionFields : [
+//             name,
+//             descr
+//         ],
+//         LineItem : [
+//             {Value : code},
+//             {Value : name},
+//         ],
+//     }
+// );
 
 
-////////////////////////////////////////////////////////////////////////////
-//
-//	Language Details
-//
-annotate common.Languages with
-@(UI : {
-    HeaderInfo : {
-        TypeName : '{i18n>Language}',
-        TypeNamePlural : '{i18n>Languages}',
-        Title : {Value : name},
-        Description : {Value : descr}
-    },
-    Facets : [{
-        $Type : 'UI.ReferenceFacet',
-        Label : '{i18n>Details}',
-        Target : '@UI.FieldGroup#Details'
-    }, ],
-    FieldGroup #Details : {Data : [
-        {Value : code},
-        {Value : name},
-        {Value : descr}
-    ]},
-});
+// ////////////////////////////////////////////////////////////////////////////
+// //
+// //	Language Details
+// //
+// annotate common.Languages with
+// @(UI : {
+//     HeaderInfo : {
+//         TypeName : '{i18n>Language}',
+//         TypeNamePlural : '{i18n>Languages}',
+//         Title : {Value : name},
+//         Description : {Value : descr}
+//     },
+//     Facets : [{
+//         $Type : 'UI.ReferenceFacet',
+//         Label : '{i18n>Details}',
+//         Target : '@UI.FieldGroup#Details'
+//     }, ],
+//     FieldGroup #Details : {Data : [
+//         {Value : code},
+//         {Value : name},
+//         {Value : descr}
+//     ]},
+// });
 
 
-////////////////////////////////////////////////////////////////////////////
-//
-//	Currencies List
-//
-annotate common.Currencies with
-@(
-    Common.SemanticKey : [code],
-    Identification : [{Value : code}],
-    UI : {
-        SelectionFields : [
-            name,
-            descr
-        ],
-        LineItem : [
-            {Value : descr},
-            {Value : symbol},
-            {Value : code},
-        ],
-    }
-);
+// ////////////////////////////////////////////////////////////////////////////
+// //
+// //	Currencies List
+// //
+// annotate common.Currencies with
+// @(
+//     Common.SemanticKey : [code],
+//     Identification : [{Value : code}],
+//     UI : {
+//         SelectionFields : [
+//             name,
+//             descr
+//         ],
+//         LineItem : [
+//             {Value : descr},
+//             {Value : symbol},
+//             {Value : code},
+//         ],
+//     }
+// );
 
 
-////////////////////////////////////////////////////////////////////////////
-//
-//	Currency Details
-//
-annotate common.Currencies with
-@(UI : {
-    HeaderInfo : {
-        TypeName : '{i18n>Currency}',
-        TypeNamePlural : '{i18n>Currencies}',
-        Title : {Value : descr},
-        Description : {Value : code}
-    },
-    Facets : [
-        {
-            $Type : 'UI.ReferenceFacet',
-            Label : '{i18n>Details}',
-            Target : '@UI.FieldGroup#Details'
-        },
-        {
-            $Type : 'UI.ReferenceFacet',
-            Label : '{i18n>Extended}',
-            Target : '@UI.FieldGroup#Extended'
-        },
-    ],
-    FieldGroup #Details : {Data : [
-        {Value : name},
-        {Value : symbol},
-        {Value : code},
-        {Value : descr}
-    ]},
-    FieldGroup #Extended : {Data : [
-        {Value : numcode},
-        {Value : minor},
-        {Value : exponent}
-    ]},
-});
+// ////////////////////////////////////////////////////////////////////////////
+// //
+// //	Currency Details
+// //
+// annotate common.Currencies with
+// @(UI : {
+//     HeaderInfo : {
+//         TypeName : '{i18n>Currency}',
+//         TypeNamePlural : '{i18n>Currencies}',
+//         Title : {Value : descr},
+//         Description : {Value : code}
+//     },
+//     Facets : [
+//         {
+//             $Type : 'UI.ReferenceFacet',
+//             Label : '{i18n>Details}',
+//             Target : '@UI.FieldGroup#Details'
+//         },
+//         {
+//             $Type : 'UI.ReferenceFacet',
+//             Label : '{i18n>Extended}',
+//             Target : '@UI.FieldGroup#Extended'
+//         },
+//     ],
+//     FieldGroup #Details : {Data : [
+//         {Value : name},
+//         {Value : symbol},
+//         {Value : code},
+//         {Value : descr}
+//     ]},
+//     FieldGroup #Extended : {Data : [
+//         {Value : numcode},
+//         {Value : minor},
+//         {Value : exponent}
+//     ]},
+// });
 
 
-////////////////////////////////////////////////////////////////////////////
-//
-//	Currencies Elements
-//
-annotate common.Currencies with {
-    numcode
-    @title : '{i18n>NumCode}';
-    minor
-    @title : '{i18n>MinorUnit}';
-    exponent
-    @title : '{i18n>Exponent}';
-}
+// ////////////////////////////////////////////////////////////////////////////
+// //
+// //	Currencies Elements
+// //
+// annotate common.Currencies with {
+//     numcode
+//     @title : '{i18n>NumCode}';
+//     minor
+//     @title : '{i18n>MinorUnit}';
+//     exponent
+//     @title : '{i18n>Exponent}';
+// }
 
 ////////////////////////////////////////////////////////////////////////////
 //

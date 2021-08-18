@@ -6,27 +6,28 @@ using ReviewService from '../../srv/review-service';
 
 annotate ReviewService.Reviews with @(UI : {
     HeaderInfo : {
-        TypeName : '{i18n>Review}',
-        TypeNamePlural : '{i18n>Reviews}',
-        Title : {Value : title},
+        TypeName : 'Contact',
+        TypeNamePlural : 'Contacts',
+        Title : {Value : phone},
         Description : {Value : createdBy},
     },
     PresentationVariant : {
         Text : 'Default',
         SortOrder : [{
-            Property : modifiedAt,
-            Descending : true
+            Property : name,
+            // Descending : true
         }],
         Visualizations : ['@UI.LineItem']
     },
     SelectionFields : [
-        book_ID,
-        rating
+        phone,
+        name,
+        place_ID
     ],
-    HeaderFacets : [{
-        $Type : 'UI.ReferenceFacet',
-        Target : '@UI.DataPoint#rating'
-    }, ],
+    // HeaderFacets : [{
+    //     $Type : 'UI.ReferenceFacet',
+    //     Target : '@UI.DataPoint#rating'
+    // }, ],
     Facets : [
         {
             $Type : 'UI.ReferenceFacet',
@@ -35,8 +36,8 @@ annotate ReviewService.Reviews with @(UI : {
         },
         {
             $Type : 'UI.ReferenceFacet',
-            Target : '@UI.FieldGroup#Review',
-            Label : '{i18n>Review}',
+            Target : '@UI.FieldGroup#Reviews',
+            Label : 'All Information',
         }
     ],
     FieldGroup #General : {Data : [
@@ -56,35 +57,38 @@ annotate ReviewService.Reviews with @(UI : {
             Value : modifiedBy,
             Label : '{i18n>ModifiedBy}'
         },
-        {Value : book_ID},
+        {
+            Value : place_ID,
+            Label : 'Place'
+        },
     ]},
-    FieldGroup #Review : {Data : [
+    FieldGroup #Reviews : {Data : [
         {
             Value : rating,
-            Label : '{i18n>Rating}'
+            Label : 'ImportanceRating'
         },
         {
-            Value : title,
-            Label : '{i18n>Title}'
+            Value : phone,
+            Label : 'Phone'
         },
         {
-            Value : text,
-            Label : '{i18n>Text}'
+            Value : name,
+            Label : 'Name'
         }
     ]},
     FieldGroup #BookAndAuthor : {Data : [
-        {Value : book.title},
-        {Value : book.author.name}
+        {Value : place.title},
+        // {Value : place.author.name}
     ]},
-    DataPoint #rating : {
-        Title : '{i18n>Rating}',
-        Value : rating,
-        Visualization : #Rating,
-        MinimumValue : 0,
-        MaximumValue : 5
-    }
+    // DataPoint #rating : {
+    //     Title : '{i18n>Rating}',
+    //     Value : rating,
+    //     Visualization : #Rating,
+    //     MinimumValue : 0,
+    //     MaximumValue : 5
+    // }
 }) {
-    rating @title : '{i18n>Rating}';
-    title @title : '{i18n>Title}';
-    text @title : '{i18n>Text}'  @UI.MultiLineText;
+    // rating @title : '{i18n>Rating}';
+    phone @title : 'Phone';
+    name @title : 'Name'  @UI.MultiLineText;
 };

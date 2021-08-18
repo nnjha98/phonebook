@@ -10,8 +10,8 @@ service CatalogService {
         action addReview(rating : Integer, title : String, text : String) returns Reviews;
     };
 
-    @readonly
-    entity Authors     as projection on my.Authors;
+    // @readonly
+    // entity Authors     as projection on my.Authors;
 
     @readonly
     entity Reviews     as projection on my.Reviews;
@@ -21,14 +21,14 @@ service CatalogService {
     };
 
     // access control restrictions
-    annotate Reviews with @restrict : [
-        {
-            grant : 'READ',
-            to : 'any'
-        },
-        {
-            grant : 'CREATE',
-            to : 'authenticated-user'
-        }
-    ];
+    // annotate Reviews with @restrict : [
+    //     {
+    //         grant : 'READ',
+    //         to : 'any'
+    //     },
+    //     {
+    //         grant : 'CREATE',
+    //         to : 'authenticated-user'
+    //     }
+    // ];
 }

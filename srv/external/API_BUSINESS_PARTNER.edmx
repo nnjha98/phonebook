@@ -216,7 +216,7 @@
      </Documentation>
     </Property>
    </EntityType>
-   <EntityType Name="A_BPContactToAddressType" sap:label="Contact Person Address" sap:content-version="1">
+   <EntityType Name="A_BPContactToAddressType" sap:label="Review Person Address" sap:content-version="1">
     <Key>
      <PropertyRef Name="RelationshipNumber"/>
      <PropertyRef Name="BusinessPartnerCompany"/>
@@ -531,7 +531,7 @@
     <Property Name="RelationshipCategory" Type="Edm.String" MaxLength="6" sap:display-format="UpperCase" sap:label="Relationship Cat." sap:quickinfo="Business Partner Relationship Category">
      <Documentation>
       <Summary>A relationship may exist between two business partners. The business partner relationship category characterizes the features of the relationship.</Summary>
-      <LongDescription>A distinction is made between a one-way and an undirected business partner relationship category. In a one-way relationship category, the relationship extends from one partner to another, but not vice versa.Marriage (undirected)Employee (one-way)Contact person (one-way)</LongDescription>
+      <LongDescription>A distinction is made between a one-way and an undirected business partner relationship category. In a one-way relationship category, the relationship extends from one partner to another, but not vice versa.Marriage (undirected)Employee (one-way)Review person (one-way)</LongDescription>
      </Documentation>
     </Property>
    </EntityType>
@@ -1256,7 +1256,7 @@
      </Documentation>
     </Property>
    </EntityType>
-   <EntityType Name="A_BusinessPartnerContactType" sap:label="Contact" sap:content-version="1">
+   <EntityType Name="A_BusinessPartnerContactType" sap:label="Review" sap:content-version="1">
     <Key>
      <PropertyRef Name="RelationshipNumber"/>
      <PropertyRef Name="BusinessPartnerCompany"/>
@@ -1292,7 +1292,7 @@
     <Property Name="RelationshipCategory" Type="Edm.String" MaxLength="6" sap:display-format="UpperCase" sap:label="Relationship Cat." sap:quickinfo="Business Partner Relationship Category">
      <Documentation>
       <Summary>A relationship may exist between two business partners. The business partner relationship category characterizes the features of the relationship.</Summary>
-      <LongDescription>A distinction is made between a one-way and an undirected business partner relationship category. In a one-way relationship category, the relationship extends from one partner to another, but not vice versa.Marriage (undirected)Employee (one-way)Contact person (one-way)</LongDescription>
+      <LongDescription>A distinction is made between a one-way and an undirected business partner relationship category. In a one-way relationship category, the relationship extends from one partner to another, but not vice versa.Marriage (undirected)Employee (one-way)Review person (one-way)</LongDescription>
      </Documentation>
     </Property>
     <NavigationProperty Name="to_ContactAddress" Relationship="API_BUSINESS_PARTNER.assoc_68C6FA4D5F974F8BBFCA5D234FA05107" FromRole="FromRole_assoc_68C6FA4D5F974F8BBFCA5D234FA05107" ToRole="ToRole_assoc_68C6FA4D5F974F8BBFCA5D234FA05107"/>

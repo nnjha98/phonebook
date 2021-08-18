@@ -9,18 +9,18 @@ using {
 
 entity Reviews : cuid, managed {
     @cds.odata.ValueList
-    book     : Association to my.Books;
+    place     : Association to my.Books;
     rating   : Rating;
-    title    : String(111);
-    text     : String(1111);
+    phone    : String(111);
+    name     : String(1111);
 }
 
 // input validation
-annotate Reviews with {
-    subject @mandatory;
-    title @mandatory;
-    rating @assert.range;
-}
+// annotate Reviews with {
+//     subject @mandatory;
+//     title @mandatory;
+//     rating @assert.range;
+// }
 
 type Rating : Integer enum {
     Best  = 5;
