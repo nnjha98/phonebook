@@ -10,8 +10,8 @@ service CatalogService {
         action addReview(rating : Integer, title : String, text : String) returns Reviews;
     };
 
-    @readonly
-    entity Authors     as projection on my.Authors;
+    // @readonly
+    // entity Authors     as projection on my.Authors;
 
     @readonly
     entity Reviews     as projection on my.Reviews;

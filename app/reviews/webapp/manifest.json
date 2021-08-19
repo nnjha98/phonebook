@@ -3,7 +3,7 @@
     "sap.app": {
         "id": "reviews",
         "type": "application",
-        "title": "{{appTitle}}",
+        "title": "Manage Reviews",
         "description": "{{appDescription}}",
         "dataSources": {
             "ReviewService": {
