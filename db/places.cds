@@ -8,11 +8,12 @@ using {
 } from '@sap/cds/common';
 
 @fiori.draft.enabled
-entity Books : cuid, managed {
+entity Places : cuid, managed 
+{
     title        : localized String(111);
     rating       : Decimal(2, 1);
-    reviews      : Association to many my.Reviews
-                       on reviews.book = $self;
+    contacts      : Association to many my.Contacts
+                       on contacts.place = $self;
     isReviewable : my.TechnicalBooleanFlag not null default true;
 }
 

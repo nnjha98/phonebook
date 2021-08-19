@@ -7,9 +7,9 @@ using {
     cuid
 } from '@sap/cds/common';
 
-entity Reviews : cuid, managed {
+entity Contacts : cuid, managed {
     @cds.odata.ValueList
-    book     : Association to my.Books;
+    place     : Association to my.Places;
     rating   : Rating;
     phone    : String(111);
     name     : String(1111);

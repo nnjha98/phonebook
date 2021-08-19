@@ -1,4 +1,4 @@
-using from './books';
+using from './places';
 // using from './orders';
-using from './reviews';
+using from './contacts';
 using from './common';

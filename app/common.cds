@@ -8,7 +8,7 @@ using {my.bookshop as my} from '../db/index';
 //
 //	Books Lists
 //
-annotate my.Books with
+annotate my.Places with
 @(
     Common.SemanticKey : [title],
     UI : {
@@ -32,7 +32,7 @@ annotate my.Books with
 //
 //	Books Elements
 //
-annotate my.Books with {
+annotate my.Places with {
     ID
     @title : '{i18n>ID}'
     @UI.HiddenFilter;
@@ -45,7 +45,7 @@ annotate my.Books with {
 //
 //	Reviews List
 //
-annotate my.Reviews with
+annotate my.Contacts with
 @(UI : {
     Identification : [
         {
@@ -63,20 +63,6 @@ annotate my.Reviews with
             Value : modifiedAt,
             Label : 'Date'
         },
-        // {
-        //     Value : createdBy,
-        //     Label : '{i18n>User}'
-        // },
-        // {
-        //     $Type : 'UI.DataFieldForAnnotation',
-        //     Label : '{i18n>Book}',
-        //     Target : '@UI.FieldGroup#BookAndAuthor'
-        // },
-        // {
-        //     $Type : 'UI.DataFieldForAnnotation',
-        //     Label : '{i18n>Rating}',
-        //     Target : '@UI.DataPoint#rating'
-        // },
         {
             Value : name,
             Label : 'Name'
@@ -86,14 +72,10 @@ annotate my.Reviews with
             Label : 'Phone'
         },
         {
-            Value : book.title,
+            Value : place.title,
             Label : 'Place'
         }
     ],
-    // FieldGroup #BookAndAuthor : {Data : [
-    //     {Value : book.title},
-    //     {Value : book.author.name}
-    // ]},
     DataPoint #rating : {
         Value : rating,
         Visualization : #Rating,
@@ -102,17 +84,17 @@ annotate my.Reviews with
     }
 });
 
-annotate my.Reviews with {
+annotate my.Contacts with {
     ID
     @title : '{i18n>ID}'
     @UI.HiddenFilter;
     phone
     @title : 'Phone';
-    book
-    @ValueList.entity : 'Books'
+    place
+    @ValueList.entity : 'Places'
     @title : 'Place'
     @Common : {
-        Text : book.title,
+        Text : place.title,
         TextArrangement : #TextOnly
     };
     date

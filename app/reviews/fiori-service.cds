@@ -2,9 +2,9 @@
   Annotations for the Browse Books App
 */
 
-using ReviewService from '../../srv/review-service';
+using ContactService from '../../srv/contact-service';
 
-annotate ReviewService.Reviews with @(UI : {
+annotate ContactService.Contacts with @(UI : {
     HeaderInfo : {
         TypeName : 'Contact',
         TypeNamePlural : 'Contacts',
@@ -22,7 +22,7 @@ annotate ReviewService.Reviews with @(UI : {
     SelectionFields : [
         phone,
         name,
-        book_ID
+        place_ID
     ],
     // HeaderFacets : [{
     //     $Type : 'UI.ReferenceFacet',
@@ -58,7 +58,7 @@ annotate ReviewService.Reviews with @(UI : {
             Label : '{i18n>ModifiedBy}'
         },
         {
-            Value : book_ID,
+            Value : place_ID,
             Label : 'Place'
         },
     ]},
@@ -76,17 +76,6 @@ annotate ReviewService.Reviews with @(UI : {
             Label : 'Name'
         }
     ]},
-    // FieldGroup #BookAndAuthor : {Data : [
-    //     {Value : book.title},
-    //     {Value : book.author.name}
-    // ]},
-    // DataPoint #rating : {
-    //     Title : '{i18n>Rating}',
-    //     Value : rating,
-    //     Visualization : #Rating,
-    //     MinimumValue : 0,
-    //     MaximumValue : 5
-    // }
 }) {
     // rating @title : '{i18n>Rating}';
     phone @title : 'Phone';
