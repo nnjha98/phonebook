@@ -2,29 +2,29 @@
   Common Annotations shared by all apps
 */
 using {my.bookshop as my} from '../db/index';
-
+using ContactService from '../srv/contact-service';
 
 ////////////////////////////////////////////////////////////////////////////
 //
 //	Books Lists
 //
-annotate my.Places with
-@(
-    Common.SemanticKey : [title],
-    UI : {
-        Identification : [{Value : title}],
-        SelectionFields : [
-            ID
-        ],
-        LineItem : [
-            {Value : ID},
-            {Value : title},
-        ]
-    }
-) {
-    author
-    @ValueList.entity : 'Authors';
-};
+// annotate my.Places with
+// @(
+//     Common.SemanticKey : [title],
+//     UI : {
+//         Identification : [{Value : title}],
+//         SelectionFields : [
+//             ID
+//         ],
+//         LineItem : [
+//             {Value : ID},
+//             {Value : title},
+//         ]
+//     }
+// ) {
+//     author
+//     @ValueList.entity : 'Authors';
+// };
 
 
 
@@ -39,7 +39,29 @@ annotate my.Places with {
     title
     @title : 'Place';
 }
+//////////////////////
 
+annotate my.Places with
+@(UI : {
+    Identification : [
+        {Value : title},
+    ],
+    SelectionFields : [
+        title
+    ],
+    LineItem : [
+        {
+            Value : modifiedAt,
+            Label : 'Modification Date of this place entry'
+        },
+        {
+            Value : title,
+            Label : 'Name of the Place'
+        },
+    ],
+    
+   
+});
 
 ////////////////////////////////////////////////////////////////////////////
 //
@@ -52,12 +74,23 @@ annotate my.Contacts with
             Value : ID,
             ![@UI.Hidden]
         },
-        {Value : phone}
+        {Value : phone},
+        // {
+        //     // Value : modifiedBy,
+        //     $Type : 'UI.DataFieldForAnnotation',
+        //     Target : '@UI.FieldGroup#AddC'
+        //     // Label : 'Modifier'
+        // }
     ],
     SelectionFields : [
         phone,
         name
     ],
+    // Header : [
+    //     {
+    //         Value: name
+    //     }
+    // ],
     LineItem : [
         {
             Value : modifiedAt,
@@ -74,14 +107,76 @@ annotate my.Contacts with
         {
             Value : place.title,
             Label : 'Place'
+        },
+        {
+            // Value : modifiedBy,
+            $Type : 'UI.DataFieldForAnnotation',
+            Target : '@UI.FieldGroup#AddC'
+            // Label : 'Modifier'
+        },
+        {
+            // Value : modifiedBy,
+            $Type : 'UI.DataFieldForAction',
+            // Value : modifiedBy,
+            Label : 'Edit this (c)',
+            Action : 'ContactService.addContacts',
+            // RequiresContext : false,
+            // Label : 'Modifier'
+        },
+        {
+            // Value : modifiedBy,
+            $Type : 'UI.DataFieldForAction',
+            // Value : modifiedBy,
+            Label : 'Insert here (c)',
+            Action : 'ContactService.EntityContainer/insertContacts',
+            // RequiresContext : true,
+            // Action : 'ContactService.EntityContainer/Contacts_insertContacts',
+        },
+        {
+            // Value : modifiedBy,
+            $Type : 'UI.DataFieldForAction',
+            // Value : modifiedBy,
+            Label : 'Insert a new place (c)',
+            Action : 'ContactService.EntityContainer/insertPlaces',
+            // RequiresContext : true,
+            // Action : 'ContactService.EntityContainer/Contacts_insertContacts',
         }
+            // 
+        // {
+        //     $Type : 'UI.DataFieldForAnnotation',
+        //     // // Label : 'La la la',
+        //     Target : '@UI.FieldGroup#AddC',
+        
+        // },
     ],
-    DataPoint #rating : {
-        Value : rating,
-        Visualization : #Rating,
-        MinimumValue : 0,
-        MaximumValue : 5
-    }
+    FieldGroup #AddC : 
+    {
+        
+        
+        Data : 
+        [
+            // {
+            //     $Type : 'UI.DataFieldForAnnotation',
+            //     Label : 'Edit this',
+            //     Target : 
+            //     // Value: name
+            // },    
+            // {Value: name},
+            {
+                $Type : 'UI.DataFieldForAction',
+                Label : 'Edit this (cc)',
+                Action : 'ContactService.addContacts',
+            // InvocationGrouping : #ChangeSet
+            }, 
+        
+        ]
+    },
+    // DataPoint #rating : {
+    //     Value : rating,
+    //     Visualization : #Rating,
+    //     MinimumValue : 0,
+    //     MaximumValue : 5
+    // }
 });
 
 annotate my.Contacts with {
@@ -99,8 +194,8 @@ annotate my.Contacts with {
     };
     date
     @title : '{i18n>Date}';
-    rating
-    @title : 'ImportanceRating';
+    address
+    @title : 'Complete Address';
     // text
     // @title : '{i18n>Text}'
     // @UI.MultiLineText;
@@ -117,3 +212,20 @@ annotate cuid with {
     ID
     @Core.Computed
 }
+
+annotate ContactService.Contacts actions {
+    // @(
+    //     Common.SideEffects : {
+    //         TargetProperties : ['_it/rating'],
+    //         TargetEntities : [
+    //             _it,
+    //             _it.reviews
+    //         ]
+    //     },
+    //     cds.odata.bindingparameter.name : '_it',
+    //     Core.OperationAvailable : _it.isReviewable
+    // )
+    addContacts(name @title : 'New name (keep blank to keep unchanged)', phone  @title : 'New phone (keep blank to keep unchanged)', place @title : 'New place (keep blank to keep unchanged)') //@ValueList.entity : 'Places')
+}
+
+// annotate insertContacts(name @title : 'New name (keep blank to keep unchanged)', phone  @title : 'New phone (keep blank to keep unchanged)', place @title : 'New place (keep blank to keep unchanged)' @ValueList.entity : 'Places');

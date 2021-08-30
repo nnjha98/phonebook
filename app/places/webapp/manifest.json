@@ -1,0 +1,127 @@
+{
+    "_version": "1.8.0",
+    "sap.app": {
+        "id": "places",
+        "type": "application",
+        "title": "Manage Places",
+        "description": "{{appDescription}}",
+        "dataSources": {
+            "ContactService": {
+                "uri": "/api/contact/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "4.0"
+                }
+            }
+        },
+        "-sourceTemplate": {
+            "id": "ui5template.basicSAPUI5ApplicationProject",
+            "-id": "ui5template.smartTemplate",
+            "-version": "1.40.12"
+        }
+    },
+    "sap.ui5": {
+        "dependencies": {
+            "libs": {
+                "sap.fe.templates": {}
+            }
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            },
+            "": {
+                "dataSource": "ContactService",
+                "settings": {
+                    "synchronizationMode": "None",
+                    "operationMode": "Server",
+                    "autoExpandSelect" : true,
+                    "earlyRequests": true,
+                    "groupProperties": {
+                        "default": {
+                            "submit": "Auto"
+                        }
+                    }
+                }
+            }
+        },
+        "routing": {
+            "routes": [
+                {
+                    "pattern": ":?query:",
+                    "name": "ReviewsList",
+                    "target": "ReviewsList"
+                },
+                {
+                    "pattern": "Places({key}):?query:",
+                    "name": "ReviewsDetails",
+                    "target": "ReviewsDetails"
+                },
+                {
+                    "pattern": "Places({key}/place({key2}):?query:",
+                    "name": "BooksDetails",
+                    "target": "BooksDetails"
+                }
+            ],
+            "targets": {
+                "ReviewsList": {
+                    "type": "Component",
+                    "id": "ReviewsList",
+                    "name": "sap.fe.templates.ListReport",
+                    "options": {
+                        "settings" : {
+                            "entitySet" : "Places",
+                            "navigation" : {
+                                "Places" : {
+                                    "detail" : {
+                                        "route" : "ReviewsDetails"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "ReviewsDetails": {
+                    "type": "Component",
+                    "id": "ReviewsDetails",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings" : {
+                            "entitySet" : "Places",
+                            "navigation" : {
+                                "Books" : {
+                                    "detail" : {
+                                        "route" : "BooksDetails"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "BooksDetails": {
+                    "type": "Component",
+                    "id": "BooksDetails",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings" : {
+                            "entitySet" : "Books"
+                        }
+                    }
+                }
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "fullWidth": false
+    },
+    "sap.fiori": {
+        "registrationIds": [],
+        "archeType": "transactional"
+    }
+}
